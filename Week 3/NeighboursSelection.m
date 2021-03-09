@@ -1,3 +1,5 @@
+%this code is for selection of 3*3 neighbours 
+
 %converting image to gray scale image
 gray_image = rgb2gray(imread("image.jpg"));
 
