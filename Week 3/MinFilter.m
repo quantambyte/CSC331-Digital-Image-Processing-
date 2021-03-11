@@ -1,8 +1,8 @@
-gray_image =rgb2gray(imread("index.jpg"));
+gray_image =rgb2gray(imread("image.jpg"));
 %size of image
 [R C] = size(gray_image);
 
-gray_image = imnoise( gray_image , 'salt & pepper' , 0.10);
+%gray_image = imnoise( gray_image , 'salt & pepper' , 0.10);
 %printing initial image
 figure; imshow(gray_image);
 

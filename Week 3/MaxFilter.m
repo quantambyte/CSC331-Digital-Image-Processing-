@@ -1,30 +1,21 @@
- %READ AN IMAGE
-A = imread('board.tif');
-A = rgb2gray(A(1:300,1:300,:));
-figure,imshow(A),title('ORIGINAL IMAGE');
+gray_image =rgb2gray(imread("image.jpg"));
+%size of image
+[R C] = size(gray_image);
 
-%PREALLOCATE THE OUTPUT MATRIX
-B=zeros(size(A));
+gray_image = imnoise( gray_image , 'salt & pepper' , 0.01);
+%printing initial image
+figure; imshow(gray_image);
 
-%PAD THE MATRIX A WITH ZEROS
-modifyA=padarray(A,[1 1]);
-
-        x=[1:3]';
-        y=[1:3]';
-       
-for i= 1:size(modifyA,1)-2
-    for j=1:size(modifyA,2)-2
-      
-       %VECTORIZED METHOD
-       window=reshape(modifyA(i+x-1,j+y-1),[],1);
-
-       %FIND THE MAXIMUM VALUE IN THE SELECTED WINDOW
+%selecting neighbours
+for i = 2 : 1 : R -1 
+    for j = 2 : 1 : C - 1
+        neighbours = gray_image(i - 1 : i + 1 , j - 1 : j + 1);   %this statement will provide neighbours for
+                                                                    %each pixel
+        max_neighbour = max(neighbours , [] , "all");
+        gray_image(i , j ) = max_neighbour;
         
-       B(i,j)=max(window);
-   
     end
 end
 
-%CONVERT THE OUTPUT MATRIX TO 0-255 RANGE IMAGE TYPE
-B=uint8(B);
-figure,imshow(B),title('IMAGE AFTER MAX FILTERING');
+%final result
+figure; imshow(gray_image);
