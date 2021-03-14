@@ -1,5 +1,11 @@
-gray_image =rgb2gray(imread("index.jpg"));
-%gray_image = imnoise( gray_image , 'salt & pepper' , 0.10);
+%this code is for noise removal using average neighbour filter implementation for 3*3 neighbours
+%averaging filter can also be used to blur image
+
+gray_image =rgb2gray(imread("image.jpg"));
+
+%adding noise
+gray_image = imnoise( gray_image , 'salt & pepper' , 0.10);
+
 %size of image
 [R, C] = size(gray_image);
 filter_size = 3;

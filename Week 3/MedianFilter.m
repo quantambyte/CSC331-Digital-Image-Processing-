@@ -1,23 +1,31 @@
-gray_image =rgb2gray(imread("index.jpg"));
+%this code is for noise removal using median filter implementation for 3*3 neighbours
+
+image = rgb2gray(imread("image.jpg"));
+
+%adding noise on original image
+noise_Image = imnoise(image, "salt & pepper");
+
+%printing noise_image
+figure; imshow(noise_Image)
+
 %size of image
-[R C] = size(gray_image);
+[R, C] = size(noise_Image);
 
-%printing initial image
-figure; imshow(gray_image);
-
-temp_image = uint8(zeros(R , C));
+%creating temp image
+new_img = uint8(zeros(R, C));
 
 %selecting neighbours
-for i = 3 : 1 : R -2
-    for j = 3 : 1 : C - 2
-        neighbours = gray_image(i - 2 : i + 2 , j - 2 : j + 2);   %this statement will provide neighbours for
+for i = 2 : 1 : R -1 
+    for j = 2 : 1 : C - 1
+        neighbours = noise_Image(i - 1 : i + 1 , j - 1 : j + 1);   %this statement will provide neighbours for
                                                                     %each pixel
-        temp = sort(neighbours);
-        temp = ceil(temp(numel(temp))/2);
-        temp_image(i , j ) = temp;
+        median_neighbour = median(neighbours, 'all');
+        
+        %placing pixels at new image
+        new_img(i , j) = median_neighbour;
         
     end
 end
 
 %final result
-figure; imshow(temp_image);
+figure; imshow(new_img);
