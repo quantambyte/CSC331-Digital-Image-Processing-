@@ -4,6 +4,10 @@
 %latge edges thersholding condition is 100
 
 gray_image =rgb2gray(imread("stars_image.png"));
+new_image = im2bw(gray_image);
+
+figure; imshow(new_image);
+title('New Image');
 
 %size of image
 [R, C] = size(gray_image);
@@ -41,15 +45,9 @@ title('Blurred and Theshold Image');
 
 
 %printing final result
-for i = 6 : 1 : R - 5
-    for j = 6 : 1 : C - 5
-        if ( temp_image (i , j ) == 0)
-            gray_image(i , j) == 0;
-        end
-    end
-end
+new_image = immultiply( temp_image , new_image);
 
 %result
-figure; imshow(gray_image);
+figure; imshow(new_image);
 title('Large Stars');
 
